@@ -1,4 +1,4 @@
-auth_service:http://localhost:8001
-product_service:http://localhost:8002
-order_service:http://localhost:8003
-payment_service:http://localhost:8004
+product_service:http://localhost:3001
+auth_service:http://localhost:3002
+order_service:http://localhost:3003
+payment_service:http://localhost:3004
