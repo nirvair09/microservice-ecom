@@ -1,28 +1,26 @@
 {
-  "name": "product_service",
+  "name": "auth-service",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/index.ts",
+  "type": "module",
   "scripts": {
-    "dev": "ts-node-dev --respawn src/index.ts",
-    "build": "tsc"
+    "dev": "pnpm dlx tsx --env-file=.env --watch src/index.ts",
+    "check-types": "tsc --noEmit"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.23.0",
   "dependencies": {
-    "@types/cors": "^2.8.19",
+    "@clerk/express": "^1.7.30",
     "cors": "^2.8.5",
-    "express": "^5.1.0",
-    "@repo/kafka": "workspace:*",
-    "@clerk/express": "^5.0.0"
+    "express": "^5.0.3",
+    "@repo/kafka": "workspace:*"
   },
   "devDependencies": {
-     "@repo/typescript-config": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
     "@repo/types": "workspace:*",
-    "@types/express": "^5.0.5",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3"
+    "@types/cors": "^2.8.19",
+    "@types/express": "^5.0.3"
   }
 }

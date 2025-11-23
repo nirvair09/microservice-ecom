@@ -2,15 +2,15 @@ import { Router } from "express";
 import clerkClient from "../utils/clerk";
 import { producer } from "../utils/kafka";
 
-const router=Router();
+const router: Router = Router();
 
 router.get("/",async(req,res)=>{
-    const users = await clerkClient.users.getUserLise();
+    const users = await clerkClient.users.getUserList();
     res.status(200).json(users);
 });
 
 router.get("/:id",async(req,res)=>{
-    const user = await clerkClient.users.getUserById(req.params.id);
+    const user = await clerkClient.users.getUser(req.params.id);
     res.status(200).json(user);
 });
 
@@ -24,7 +24,7 @@ router.post("/",async(req,res)=>{
    producer.send("user-created",{
     value:{
         username:user.username,
-        email:user.emailAddresses[0].emailAddress,
+        email:user.emailAddresses[0]?.emailAddress,
         
     },
    });
@@ -41,7 +41,7 @@ router.delete("/:id",async(req,res)=>{
     producer.send("user-deleted",{
         value:{
             username:user.username,
-            email:user.emailAddresses[0].emailAddress,
+            email:user.emailAddresses[0]?.emailAddress,
         },
     });
 
