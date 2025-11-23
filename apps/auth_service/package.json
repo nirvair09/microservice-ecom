@@ -14,9 +14,13 @@
   "dependencies": {
     "@types/cors": "^2.8.19",
     "cors": "^2.8.5",
-    "express": "^5.1.0"
+    "express": "^5.1.0",
+    "@repo/kafka": "workspace:*",
+    "@clerk/express": "^5.0.0"
   },
   "devDependencies": {
+     "@repo/typescript-config": "workspace:*",
+    "@repo/types": "workspace:*",
     "@types/express": "^5.0.5",
     "ts-node-dev": "^2.0.0",
     "typescript": "^5.9.3"
