@@ -3,6 +3,7 @@ import cors from "cors";
 import { clerkMiddleware } from "@clerk/express";
 import productRouter from "./routes/product.route";
 import categoryRouter from "./routes/category.route";
+import { consumer, producer } from "./utils/kafka";
 
 const app = express();
 
@@ -42,7 +43,7 @@ app.use((err:any,
 
 const startProductService=async()=>{
   try {
-    // Promise.all([await producer.connect(),await consumer.connect()]);
+    Promise.all([await producer.connect(),await consumer.connect()]);
 
     app.listen(3002,()=>{
       console.log("Product service running on port 3002");
