@@ -11,14 +11,18 @@
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.23.0",
-  "dependencies": {
-    "@types/cors": "^2.8.19",
-    "cors": "^2.8.5",
-    "express": "^5.1.0"
-  },
   "devDependencies": {
-    "@types/express": "^5.0.5",
-    "ts-node-dev": "^2.0.0",
-    "typescript": "^5.9.3"
+    "@repo/types": "workspace:*",
+    "@repo/typescript-config": "workspace:*",
+    "@types/node": "^20",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@clerk/fastify": "^2.4.30",
+    "@repo/kafka": "workspace:*",
+    "@repo/order-db": "workspace:*",
+    "date-fns": "^4.1.0",
+    "fastify": "^5.5.0"
   }
 }
