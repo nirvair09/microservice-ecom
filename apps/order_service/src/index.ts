@@ -46,3 +46,4 @@ const startOrderService=async()=>{
   }
 }
 
+startOrderService();

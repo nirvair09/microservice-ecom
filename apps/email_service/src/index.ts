@@ -1,24 +1,12 @@
-import express from "express";
-import cors from "cors";
+import { createConsumer, createKafkaClient } from "@repo/kafka";
 
-const app = express();
+const kafka = createKafkaClient("email-service");
+const consumer=createConsumer(kafka,"email-service");
 
-app.use(
-  cors(
-    {origin:"*",
-    // credential:true,
-    }
-  )
-);
+const startEmailService=async()=>{
 
-app.use(express());
+};
 
-app.get("/", (req, res) => {
-  res.json({ status: "ok" });
-});
-
-app.listen(8001, () => {
-  console.log("Product service running on port 8001");
-});
+startEmailService();
 
 
