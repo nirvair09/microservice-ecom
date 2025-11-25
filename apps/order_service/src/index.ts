@@ -1,24 +1,48 @@
-import express from "express";
-import cors from "cors";
+import { clerkPlugin } from "@clerk/fastify";
+import Fastify from "fastify";
+import { shouldBeUser } from "./middlewares/authMiddleware";
+import { orderRoute } from "./routes/order.routes";
+import { consumer, producer } from "./utils/kafka";
+import { connectOrderDB } from "@repo/order-db";
+import { runKafkaSubscriptions } from "./utils/subscriptions";
 
-const app = express();
 
-app.use(
-  cors(
-    {origin:"*",
-    // credential:true,
-    }
-  )
-);
+const fastify=Fastify();
 
-app.use(express());
+fastify.register(clerkPlugin);
 
-app.get("/", (req, res) => {
-  res.json({ status: "ok" });
+fastify.get("/health",(request,reply)=>{
+  return reply.status(200).send({
+    status:"ok",
+    uptime:process.uptime(),
+    timestamp:Date.now(),
+  });
 });
 
-app.listen(8001, () => {
-  console.log("Product service running on port 8001");
+fastify.get("/test",{preHandler:shouldBeUser},(request,reply)=>{
+  return reply.send({
+    message:"Order service is authenticated!",
+    userId:request.userId
+  });
 });
 
+
+fastify.register(orderRoute);
+
+const startOrderService=async()=>{
+  try {
+    Promise.all([
+      await connectOrderDB(),
+      await producer.connect(),
+      await consumer.connect(),
+    ]);
+    
+    await runKafkaSubscriptions();
+    await fastify.listen({port:3003});
+    console.log("Order service is running on port 3003");
+  } catch (error) {
+    console.log(error);
+    process.exit(1);
+  }
+}
 
